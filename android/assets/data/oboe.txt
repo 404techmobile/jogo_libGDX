@@ -1,0 +1,36 @@
+https://github.com/barsoosayque/libgdx-oboe
+
+
+dependencies {
+    implementation project(":library")
+    implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation group: 'io.github.libktx', name: 'ktx-scene2d', version: "$ktxVersion"
+    implementation group: 'io.github.libktx', name: 'ktx-actors', version: "$ktxVersion"
+    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
+    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+}
+
+
+import com.badlogic.gdx.backends.android.AndroidApplication
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
+import com.badlogic.gdx.backends.android.AndroidAudio
+
+
+public class AndroidLauncher extends AndroidApplication {
+    // Magic happens here:
+    @Override
+    public AndroidAudio createAudio(Context context, AndroidApplicationConfiguration config) {
+        return new OboeAudio(context.getAssets());
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+        initialize(new SomeApp(), config);
+    }
+}

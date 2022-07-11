@@ -1,0 +1,20 @@
+Sound sound = Gdx.audio.newSound(Gdx.files.internal("data/mysound.mp3"));
+
+sound.play(1.0f);
+
+long id = sound.play(1.0f); // play new sound and keep handle for further manipulation
+sound.stop(id);             // stops the sound instance immediately
+sound.setPitch(id, 2);      // increases the pitch to 2x the original pitch
+
+id = sound.play(1.0f);      // plays the sound a second time, this is treated as a different instance
+sound.setPan(id, -1, 1);    // sets the pan of the sound to the left side at full volume
+sound.setLooping(id, true); // keeps the sound looping
+sound.stop(id);             // stops the looping sound 
+
+sound.dispose();
+
+---------------------------------------------------------------------------------------------------
+
+menuMusic = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/music_menu.ogg");
+menuMusic.setLooping(true);
+menuMusic.play();
